@@ -35,7 +35,7 @@
     - g) często pytany w sposób szczegółowy nie ogarnia, odpowiada ogólnikami
     - h) zmiana tematu jest naturalna, mimo chwilowego utrzymania go, łatwo się "rozprasza" i wraca do tematu od którego zaczeliśmy rozmowę, wiąże się to tez z unikaniem odpowiedzi
     - i) nowsze boty utrzymują wątek, a przynajmniej się starają, starsze szybko go tracą wracając do pierwszego tematu lub mówiąc totalne głupoty niezwiązane z żadnym tematem
-  - Bot asystent:
+- Bot asystent:
     - a) bot opowiada żarty związane z firmą dla której został stworzony, np bot Ikei opowiada żarty w których głównym clue jest składanie mebli
     - b) bot nie wie czym jest cytat, nie przytacza żadnego mimo wielu próśb
     - c) bot Ikei formuje swoje wypowiedzi ttak, aby nawiązać do mebli lub pomocy w jakimś problemie 
