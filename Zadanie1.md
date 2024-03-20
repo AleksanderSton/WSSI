@@ -25,7 +25,7 @@
 # Zadanie 4
 1. Bot udający człowieka, będzie się upierał, że jest człowiekiem, po zadaniu pytania sugerował, że to ja jestem robotem, ponadto często zapominał o czym mówił kilka wiadomości wyżej. Z kolei bot asystent od razu informuje nas, że jest botem, bezpośrednio pyta się w czym może pomóc, proponuje jakieś rozwiązania czy proponuje zakup czegoś.
 2.
-   - Bot udający człowieka:
+- Bot udający człowieka:
     - a) bot opowiada żarty, często te nieśmieszne, ponieważ nie wiem czym jest żart, niektóre boty natychmiast gubią wątek i nie chcą opowiedzieć kolejnego żartu
     - b) w zalezności od wybranego modelu - ChatGPT radzi sobie i przytacza cytaty znanych osób, z kolei np cleverbot nie ogarnia i odpowiada losowe rzeczy niezwiązane zupełnie z rozmową
     - c) bot stara się trzymać pewnych słów kluczowych, ale nie radzi sobie z tym wybitnie, np cleverbot po zapytaniu czy jest chłopakiem czy dziewczyną co chwilę mówi na temet płci, anwet nie pytany
