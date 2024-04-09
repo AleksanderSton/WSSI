@@ -6,20 +6,17 @@
 mezczyzna(janusz).
 mezczyzna(brajan).
 mezczyzna(piotr).
-
 mezczyzna(adam).
 mezczyzna(kuba).
-
 mezczyzna(kamil).
-mazczyzna(szymon).
+mezczyzna(szymon).
 mezczyzna(ezekiel).
-
+mezczyzna(artur).
 
 rodzic(janusz, piotr).
 rodzic(janusz, brajan).
 rodzic(grazyna, piotr).
 rodzic(grazyna, brajan).
-
 rodzic(piotr, adam).
 rodzic(adam, magda).
 rodzic(emilia, magda).
@@ -27,13 +24,12 @@ rodzic(magda,mia).
 rodzic(kuba,mia).
 rodzic(kuba, ezekiel).
 rodzic(adelaida, ezekiel).
-
 rodzic(brajan, kamil).
 rodzic(martyna,kamil).
-
 rodzic(kamil,adelaida).
 rodzic(abigail,adelaida).
-
+rodzic(brajan, artur).
+rodzic(martyna,artur).
 
 osoba(grazyna).
 osoba(emilia).
@@ -43,7 +39,7 @@ osoba(adelaida).
 osoba(magda).
 osoba(mia).
 /*
-?-kobieta(magda).
+?- kobieta(magda).
 ?- ojciec(janusz,brajan).
 ?- matka(grazyna,piotr).
 ?- corka(magda,adam).
@@ -59,27 +55,30 @@ osoba(mia).
 ?- przodek_do3pokolenia_wstecz(janusz,mia).
 */
 kobieta(X) :- 
-    \+ mezczyzna(x).
+    \+ (mezczyzna(X)).
 
-ojciec(X,Y) :-% X jest ojcem Y
+ojciec(X, Y) :-% X jest ojcem Y
     mezczyzna(X),
     rodzic(X, Y),
-    X =\ Y.
+    X \= Y.
 
 matka(X,Y) :-% X jest matką Y
     kobieta(X),
     rodzic(X, Y),
-    X =\ Y.
+    X\=Y.
 
 corka(X, Y) :-% X jest córką Y
     kobieta(X),
     rodzic(Y, X),
     X \= Y.
 
-brat_rodzony(X, Y) :-% X jest rodzonym bratem Y
+brat_rodzony(X,Y) :-% X jest rodzonym bratem Y
     mezczyzna(X),
-    (ojciec(Z, X), ojciec(Z, Y)),
-    (matka(W, X), matka(W, Y)).
+    ojciec(Z, X),
+    ojciec(Z, Y),
+    matka(W, X),
+    matka(W, Y),
+    X \= Y.
 
 siostra_rodzona(X, Y) :-
     kobieta(X),
@@ -90,53 +89,49 @@ brat_przyrodni(X, Y) :-% X jest przyrodnim bratem Y
     mezczyzna(X),
     (
         (
-            (ojciec(Z, X), ojciec(Z, Y)), (matka(W, X), matka(U, Y))
+            (ojciec(Z, X), ojciec(Z, Y)), \+ (matka(W, X), matka(W, Y))
         );
         (
-            (ojciec(Z, X), ojciec(R, Y)), (matka(W, X), matka(W, Y))
+            (matka(W, X), matka(W, Y)), \+ (ojciec(Z, X), ojciec(Z, Y))
         )
-    )
+    ).
 
 kuzyn(X, Y) :-% X jest kuzynem Y
-    rodzic(Z, X),
-    rodzic(W, Y),
-    (
-        brat_rodzony(Z, W);
-        siostra_rodzona(W, Z);
-        siostra_rodzona(Z, W);
-    ),
-    Z =\ W.
+    rodzic(R,X),
+    rodzic(Z,Y),
+    (siostra_rodzona(Z,R);brat_rodzony(Z,R)),
+    X \= Y.
 
-dziadek_od_strony_ojca(X,Y) :–% X jest dziadkiem od strony ojca dla Y
+dziadek_od_strony_ojca(X,Y) :- % X jest dziadkiem od strony ojca dla Y
     ojciec(X, Z),
     ojciec(Z, Y),
-    X =\ Y.
+    X \= Y.
 
-dziadek_od_strony_matki(X,Y) :–% X jest dziadkiem od strony matki dla Y
+dziadek_od_strony_matki(X,Y) :- % X jest dziadkiem od strony matki dla Y
     ojciec(X, Z),
     matka(Z, Y),
-    X =\ Y.
+    X \= Y.
 
-dziadek(X,Y) :–% X jest dziadkiem Y
+dziadek(X,Y) :-% X jest dziadkiem Y
     ojciec(X, Z),
     rodzic(Z, Y),
-    Z =\ Y,
-    X =\ Y.
+    Z \= Y,
+    X \= Y.
 
-babcia(X,Y) :–% X jest babcią Y
+babcia(X,Y) :-% X jest babcią Y
     matka(X, Z),
     rodzic(Z, Y),
-    Z =\ Y,
-    X =\ Y.
+    Z \= Y,
+    X \= Y.
 
-wnuczka(X,Y) :–% Y jest wnuczką X
+wnuczka(X,Y) :-% Y jest wnuczką X
     kobieta(Y),
     (
         babcia(X, Y);
         dziadek(X, Y)
     ).
 
-przodek_do2pokolenia_wstecz(X,Y) :–% X jest przodkiem Y do drugiego pokolenia wstecz
+przodek_do2pokolenia_wstecz(X,Y) :-% X jest przodkiem Y do drugiego pokolenia wstecz
     (
         rodzic(X,Y);
         (
@@ -144,7 +139,7 @@ przodek_do2pokolenia_wstecz(X,Y) :–% X jest przodkiem Y do drugiego pokolenia 
             babcia(X,Y)
         )
     ),
-    X =\ Y.
+    X \= Y.
     
 przodek_do3pokolenia_wstecz(X,Y) :-% X jest przodkiem Y do trzeciego pokolenia wstecz
     (
@@ -161,4 +156,4 @@ przodek_do3pokolenia_wstecz(X,Y) :-% X jest przodkiem Y do trzeciego pokolenia w
             )
         )
     ),
-    X =\ Y.
+    X \= Y.
