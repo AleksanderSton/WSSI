@@ -137,14 +137,28 @@ wnuczka(X,Y) :–% Y jest wnuczką X
     ).
 
 przodek_do2pokolenia_wstecz(X,Y) :–% X jest przodkiem Y do drugiego pokolenia wstecz
-    rodzic(Z, Y),
     (
-        dziadek(X, Z);
-        babcia(X, Z)
+        rodzic(X,Y);
+        (
+            dziadek(X,Y);
+            babcia(X,Y)
+        )
     ),
     X =\ Y.
     
 przodek_do3pokolenia_wstecz(X,Y) :-% X jest przodkiem Y do trzeciego pokolenia wstecz
-    rodzic(Z,Y),
-    przodek_do2pokolenia_wstecz(X,Z),
+    (
+        rodzic(X,Y);
+        (
+            dziadek(X,Y);
+            babcia(X,Y)
+        );
+        (
+            rodzic(Z, Y),
+            (
+                dziadek(X,Z);
+                babcia(X,Z)
+            )
+        )
+    ),
     X =\ Y.
