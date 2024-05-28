@@ -25,5 +25,6 @@ def visualize_network(layer_sizes):
 
 layer_sizes = [3, 4, 4, 1]
 network = neuralNetwork.NeuralNetwork(layer_sizes)
-
+input = np.array([-0.1,0.075,0.1])
+print(network.forward(input))
 visualize_network(layer_sizes)
